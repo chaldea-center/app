@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base href="/" />
+
+    <meta charset="UTF-8" />
+    <meta content="IE=Edge" http-equiv="X-UA-Compatible" />
+    <link rel="icon" href="/favicon.png" />
+
+    <!-- iOS meta tags & icons -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="apple-mobile-web-app-title" content="chaldea" />
+    <link rel="apple-touch-icon" href="icons/Icon-192.png" />
+
+    <!-- social graph -->
+    <meta property="og:site_name" content="Chaldea" />
+    <meta property="og:title" content="Chaldea" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://chaldea.center" />
+    <meta property="og:image" content="https://chaldea.center/icons/Icon-192.png" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="300" />
+    <meta property="og:image:height" content="300" />
+    <meta property="og:image:alt" content="Chaldea Logo" />
+    <meta property="og:description" content="Chaldea - Yet another planner for Fate/GO" />
+
+    <title>Chaldea</title>
+    <meta name="description" content="Chaldea - Yet Another Planner for Fate/GO" />
+    <link rel="manifest" href="manifest.json" />
+    <style>
+      .loading-hint {
+        margin-top: 100px;
+        color: #212529;
+        font-family: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+      }
+      @media only screen and (max-width: 768px) {
+        .loading-hint {
+          font-size: 2em;
+        }
+      }
+      .loading-indicator {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        min-height: 100vh;
+      }
+      .lds-ripple {
+        display: inline-block;
+        position: absolute;
+        width: 80px;
+        height: 80px;
+      }
+      .lds-ripple div {
+        position: absolute;
+        border: 4px solid grey;
+        opacity: 1;
+        border-radius: 50%;
+        animation: lds-ripple 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+      }
+      .lds-ripple div:nth-child(2) {
+        animation-delay: -0.5s;
+      }
+      @keyframes lds-ripple {
+        0% {
+          top: 36px;
+          left: 36px;
+          width: 0;
+          height: 0;
+          opacity: 1;
+        }
+        100% {
+          top: 0px;
+          left: 0px;
+          width: 72px;
+          height: 72px;
+          opacity: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- loading indicator, ref: loading.io -->
+    <div class="loading-indicator">
+      <div class="lds-ripple">
+        <div></div>
+        <div></div>
+      </div>
+      <div class="loading-hint">Loading Chaldea...</div>
+    </div>
+
+    <script>
+      let _host = window.location.hostname.toLowerCase();
+      window.isCNHost =
+        "true" === window.localStorage.getItem("useProxy") ||
+        _host.startsWith("cn.") ||
+        -1 != "narumi.cc".indexOf(_host) ||
+        -1 != ["localhost"].indexOf(_host);
+
+      window.flutterConfiguration = {
+        canvasKitBaseUrl: "/canvaskit/",
+      };
+
+      // config web renderer, only work when built with "auto" option
+      switch (window.localStorage.getItem("flutterWebRenderer")) {
+        case "html":
+          window.flutterWebRenderer = "html";
+          break;
+        case "canvaskit":
+          window.flutterWebRenderer = "canvaskit";
+          break;
+        case "auto":
+          break;
+        default:
+          window.flutterWebRenderer = "html";
+          break;
+      }
+    </script>
+
+    <script>
+      var serviceWorkerVersion = '3738503206';
+      var scriptLoaded = false;
+      function loadMainDartJs() {
+        if (scriptLoaded) {
+          return;
+        }
+        scriptLoaded = true;
+        var scriptTag = document.createElement("script");
+        scriptTag.src = "main.dart.f65bf238.js";
+        scriptTag.type = "application/javascript";
+        scriptTag.onload = () => {
+          document.getElementsByClassName("loading-indicator")[0]?.remove();
+        };
+        document.body.append(scriptTag);
+      }
+
+      if ("serviceWorker" in navigator) {
+        // Service workers are supported. Use them.
+        window.addEventListener("load", function () {
+          // Wait for registration to finish before dropping the <script> tag.
+          // Otherwise, the browser will load the script multiple times,
+          // potentially different versions.
+          var serviceWorkerUrl = "flutter_service_worker.js?v=" + serviceWorkerVersion;
+          navigator.serviceWorker.register(serviceWorkerUrl).then((reg) => {
+            function waitForActivation(serviceWorker) {
+              serviceWorker.addEventListener("statechange", () => {
+                if (serviceWorker.state == "activated") {
+                  console.log("Installed new service worker.");
+                  loadMainDartJs();
+                }
+              });
+            }
+            if (!reg.active && (reg.installing || reg.waiting)) {
+              // No active web worker and we have installed or are installing
+              // one for the first time. Simply wait for it to activate.
+              waitForActivation(reg.installing || reg.waiting);
+            } else if (!reg.active.scriptURL.endsWith(serviceWorkerVersion)) {
+              // When the app updates the serviceWorkerVersion changes, so we
+              // need to ask the service worker to update.
+              console.log("New service worker available.");
+              document.getElementsByClassName("loading-hint")[0].innerHTML = "Updating Chaldea...";
+              reg.update();
+              waitForActivation(reg.installing);
+            } else {
+              // Existing service worker is still good.
+              console.log("Loading app from service worker.");
+              loadMainDartJs();
+            }
+          });
+
+          // If service worker doesn't succeed in a reasonable amount of time,
+          // fallback to plaint <script> tag.
+          setTimeout(() => {
+            if (!scriptLoaded) {
+              console.warn("Failed to load app from service worker. Falling back to plain <script> tag.");
+              loadMainDartJs();
+            }
+          }, 4000);
+        });
+      } else {
+        // Service workers not supported. Just drop the <script> tag.
+        loadMainDartJs();
+      }
+    </script>
+  </body>
+</html>
