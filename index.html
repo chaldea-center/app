@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <base href="/" />
+
+    <meta charset="UTF-8" />
+    <title>Chaldea</title>
+    <meta name="description" content="Chaldea - Yet Another Planner & Battle Simulator for Fate/GO" />
+    <meta
+      name="keyword"
+      content="Material Planning,Planner,Laplace,迦勒底,素材规划,模拟器,组队,Battle Simulator,3T Simulator,companion,FGO,Fate/Grand Order,命运-冠位指定,周回,free"
+    />
+
+    <meta content="IE=Edge" http-equiv="X-UA-Compatible" />
+    <!-- iOS meta tags & icons -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="apple-mobile-web-app-title" content="chaldea" />
+    <link rel="apple-touch-icon" href="icons/Icon-192.png" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="favicon.png" />
+
+    <!-- social graph -->
+    <meta property="og:site_name" content="Chaldea" />
+    <meta property="og:title" content="Chaldea" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://chaldea.center" />
+    <meta property="og:image" content="https://chaldea.center/icons/Icon-192.png" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="300" />
+    <meta property="og:image:height" content="300" />
+    <meta property="og:image:alt" content="Chaldea Logo" />
+    <meta property="og:description" content="Chaldea - Yet Another Planner & Battle Simulator for Fate/GO" />
+
+    <link rel="manifest" href="manifest.json" />
+
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+
+    <!-- analyzers -->
+    <!-- Cloudflare Web Analytics -->
+    <script
+      defer
+      src="https://static.cloudflareinsights.com/beacon.min.js"
+      data-cf-beacon='{"token": "467d575c5813481eaebaa9566fd3d78a"}'
+    ></script>
+    <!-- Baidu -->
+    <script>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?ddeb4cb9b5c01c98405c3bf11b9c9c34";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XS2D05TGKG"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-XS2D05TGKG");
+    </script>
+    <!-- AdSense -->
+    <meta name="google-adsense-account" content="ca-pub-1170355046794925">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1170355046794925"
+    crossorigin="anonymous"></script>
+    <script async custom-element="amp-ad" src="https://cdn.ampproject.org/v0/amp-ad-0.1.js"></script>
+    <!-- end analyzers -->
+
+    <!-- WeakRef polyfill Chrome <84 -->
+    <script>
+        var self=this||{};try{self.WeakRef=WeakRef,self.FinalizationGroup=FinalizationGroup}catch(e){!function(e,t){var i=new e;function n(e){i.set(this,e)}t(n.prototype,{deref:{value:function(){return i.get(this)}}});var a=new e;function r(e){a.set(this,[])}t(r.prototype,{register:{value:function(e,t){var i=a.get(this);i.indexOf(t)<0&&i.push(t)}},unregister:{value:function(e,t){var i=a.get(this),n=i.indexOf(t);return-1<n&&i.splice(n,1),-1<n}},cleanupSome:{value:function(e){e(a.get(this))}}}),self.WeakRef=n,self.FinalizationGroup=r}(WeakMap,Object.defineProperties)}
+    </script>
+    <script>
+      // The value below is injected by flutter build, do not touch.
+      const serviceWorkerVersion = "1134721437";
+    </script>
+    <!-- This script adds the flutter initialization JS code -->
+    <!-- Replace FLUTTER_VERSION with deployed version in patch -->
+    <script src="/flutter.js?v=3.22.2" defer></script>
+  </head>
+  <body>
+    <noscript> You need to enable JavaScript to run this app. </noscript>
+
+    <div class="splash-container">
+      <img class="logo" src="/assets/res/img/launcher_icon/app_icon_rounded.png" alt="Chaldea Logo" />
+      <h1>Chaldea</h1>
+      <!-- for bots -->
+      <div style="display: none">
+        <em>Chaldea is a cross-platform tool for Fate/Grand Order, composed of Chaldeas and Laplace.</em>
+        <em>Chaldeas is a planner to help masters planning materials, servants, events and so on.</em>
+        <em><a href="/laplace">Laplace</a> is a novel battle simulator to help building your team, help 3T farming.</em>
+      </div>
+      <p id="loading-message">Starting...</p>
+      <div class="loading-container">
+        <img class="fou f1" src="/assets/res/img/load_icon_A01.png" alt="Loading" />
+        <img class="fou f2" src="/assets/res/img/load_icon_A02.png" alt="Loading" />
+        <img class="fou f3" src="/assets/res/img/load_icon_A03.png" alt="Loading" />
+        <img class="fou f4" src="/assets/res/img/load_icon_A04.png" alt="Loading" />
+      </div>
+      <a class="button" href="https://docs.chaldea.center" target="_blank">Visit Document Site</a>
+    </div>
+
+    <script>
+      let _host = window.location.hostname.toLowerCase();
+      window.isCNHost =
+        "true" === window.localStorage.getItem("useProxy") ||
+        _host.startsWith("cn.") ||
+        -1 != "narumi.cc".indexOf(_host) ||
+        -1 != ["localhost"].indexOf(_host);
+    </script>
+
+    <script>
+      function setErrorMessage(msg) {
+        document.getElementById("loading-message").innerHTML = msg;
+        const loading_container = document.getElementsByClassName('loading-container')[0]
+        if(loading_container) {
+          loading_container.style.display = 'none';
+        }
+      }
+      const uri = new URL(window.location.href);
+      if (uri.pathname === "/discord") {
+        window.location.href = "https://discord.gg/5M6w5faqjP";
+      } else if (uri.host === 'link.chaldea.center' || uri.host === 'www.chaldea.center') {
+        uri.host = 'chaldea.center';
+        setTimeout(() => {
+          window.location.href = uri.toString();
+        }, 3000);
+      } else if (!window.globalThis) {
+        setErrorMessage("Please upgrade browser<br>请升级浏览器")
+      } else {
+        window.addEventListener("load", function (ev) {
+          // Download main.dart.js
+          _flutter.loader.loadEntrypoint({
+            serviceWorker: {
+              serviceWorkerVersion: serviceWorkerVersion,
+            },
+            entrypointUrl: "/main.dart.js?v=e49a7377",
+            onEntrypointLoaded: function (engineInitializer) {
+              // config web renderer, only work when built with "auto" option
+              let _renderer = window.localStorage.getItem("flutterWebRenderer");
+              if (["html", "canvaskit", "auto"].indexOf(_renderer) === -1) {
+                _renderer = "html";
+              }
+              // window.flutterWebRenderer = _renderer;
+              engineInitializer
+                .initializeEngine({
+                  canvasKitBaseUrl: "/canvaskit/",
+                  renderer: _renderer,
+                })
+                .then(function (appRunner) {
+                  appRunner.runApp();
+                });
+            },
+          });
+        });
+      }
+    </script>
+  </body>
+</html>
